@@ -1,4 +1,4 @@
-```markdown
+
 # SuperToken Auth API 🔐
 
 Una API de autenticación segura con encriptación AES-256-GCM y rotación automática de claves, integrada con JWT.
@@ -88,19 +88,4 @@ curl -H "Authorization: Bearer [TU_TOKEN]" http://localhost:3010/api/profile
 ## Licencia 📄
 MIT © [Tu Nombre]  
 **Importante:** Este proyecto es para fines educativos. Úsalo bajo tu propio riesgo en ambientes productivos.
-```
 
-Este README incluye:
-- Instrucciones claras de instalación y configuración
-- Ejemplos de uso directo desde terminal
-- Sección de seguridad destacada
-- Estructura del proyecto
-- Políticas de contribución
-- Notas importantes para uso en producción
-
-Para mejorarlo en tu proyecto personal:
-1. Agrega capturas de pantalla
-2. Incluye información específica de tu implementación
-3. Agrega una sección de troubleshooting
-4. Detalla los parámetros personalizables
-5. Añade badges de CI/CD si aplica
