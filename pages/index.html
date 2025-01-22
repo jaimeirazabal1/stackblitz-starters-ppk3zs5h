@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JWT Demo</title>
+    <style>
+      body {
+        font-family: Arial;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .container {
+        margin: 20px 0;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Demo JWT con Doble Encriptación</h1>
+
+    <div class="container">
+      <h3>Login</h3>
+      <button onclick="login()">Login (demo/demo123)</button>
+    </div>
+
+    <div class="container">
+      <h3>Test Token</h3>
+      <button onclick="getProfile()">Obtener Perfil</button>
+    </div>
+
+    <div class="container">
+      <h3>Resultado:</h3>
+      <pre id="result">Esperando acción...</pre>
+    </div>
+
+    <script>
+      let currentToken = null;
+
+      async function login() {
+        try {
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: 'demo',
+              password: 'demo123',
+            }),
+          });
+
+          const data = await response.json();
+          if (data.token) {
+            currentToken = data.token;
+            document.getElementById(
+              'result'
+            ).textContent = `Login exitoso!\nToken: ${data.token}`;
+          } else {
+            throw new Error(data.error);
+          }
+        } catch (error) {
+          document.getElementById(
+            'result'
+          ).textContent = `Error: ${error.message}`;
+        }
+      }
+
+      async function getProfile() {
+        if (!currentToken) {
+          document.getElementById('result').textContent =
+            'Error: Debes hacer login primero';
+          return;
+        }
+
+        try {
+          const response = await fetch('/api/profile', {
+            headers: {
+              Authorization: `Bearer ${currentToken}`,
+            },
+          });
+
+          const data = await response.json();
+          document.getElementById('result').textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById(
+            'result'
+          ).textContent = `Error: ${error.message}`;
+        }
+      }
+    </script>
+  </body>
+</html>
